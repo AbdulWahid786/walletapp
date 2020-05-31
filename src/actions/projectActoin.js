@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ERRORS, GET_WALLETS, DELETE_WALLET } from './types'
+import { GET_ERRORS, GET_WALLETS, DELETE_WALLET, GET_WALLET } from './types'
 
 export const createWallet = (newWallet, history) => async dispatch => {
     await axios.post('http://localhost:8080/wallet', newWallet)
@@ -10,6 +10,17 @@ export const createWallet = (newWallet, history) => async dispatch => {
             dispatch({ type: GET_ERRORS, payload: err.response.data })
         })
 }
+
+export const updateWallet = (id,updateWallet, history) => async dispatch => {
+    await axios.put(`http://localhost:8080/wallet/${id}`, updateWallet)
+        .then((res) => {
+            history.push('/dashboard')
+        })
+        .catch((err) => {
+            dispatch({ type: GET_ERRORS, payload: err.response.data })
+        })
+}
+
 
 export const getWallets = () => async dispatch => {
     await axios.get('http://localhost:8080/wallet')
@@ -26,6 +37,15 @@ export const deleteWallet = (id) => async dispatch => {
         .then((res) => {
             
             dispatch({ type: DELETE_WALLET, payload: id })
+        })
+
+}
+
+export const getWallet = (id) => async dispatch => {
+    await axios.get(`http://localhost:8080/wallet/${id}`)
+        .then((res) => {
+            
+            dispatch({ type: GET_WALLET, payload: res.data })
         })
 
 }
