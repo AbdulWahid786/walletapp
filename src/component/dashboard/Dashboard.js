@@ -5,6 +5,24 @@ import { connect } from 'react-redux'
 import { getWallets } from '../../actions/projectActoin'
 
 class Dashboard extends Component {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             totalBalance:0.0
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.wallets){
+            let totalBal = 0
+            for(let i=0;i<nextProps.wallets.length;i++){
+                totalBal=totalBal+nextProps.wallets[i].currentBalance
+            }
+            this.setState({totalBalance:totalBal})
+        }
+    }
+
     componentDidMount() {
         this.props.getWallets()
     }
@@ -33,7 +51,7 @@ class Dashboard extends Component {
                             <div className="card text-center">
                                 <div className="card-header bg-success text-white">
                                     <h4>Current Balance (Total)</h4>
-                                    <h1>Rs. 27000</h1>
+                                    <h1>Rs. {this.state.totalBalance}</h1>
                                 </div>
                             </div>
                             <hr />
@@ -58,8 +76,7 @@ class Dashboard extends Component {
 }
 
 const mapStatToProp = (state) => ({
-    wallets: state.wallet.wallets //small w tha idhr
-    //again idhr capital w use kia ha, and udhr small
+    wallets: state.wallet.wallets 
 })
 
 export default connect(mapStatToProp, { getWallets })(Dashboard)
