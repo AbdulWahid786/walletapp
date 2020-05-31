@@ -54,7 +54,7 @@ class UpdateWallet extends Component {
             priority: this.state.priority,
             currentBalance:this.state.currentBalance
         }
-        this.props.this.updateWallet(this.state.id,updateWallet,this.props.history)
+        this.props.updateWallet(this.state.id,updateWallet,this.props.history)
         event.preventDefault()
         
     }
@@ -90,7 +90,7 @@ class UpdateWallet extends Component {
                                         <option value={3}>Low</option>
                                     </select>
                                 </div>
-                                <input type="submit" className="btn btn-success btn-block mt-4" value="Update" />
+                                <input onClick={(event) => this.submitHandler(event)}  type="button" className="btn btn-success btn-block mt-4" value="Update" />
                             </form>
                         </div>
                     </div>

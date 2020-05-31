@@ -13,12 +13,12 @@ export const createWallet = (newWallet, history) => async dispatch => {
 
 export const updateWallet = (id,updateWallet, history) => async dispatch => {
     await axios.put(`http://localhost:8080/wallet/${id}`, updateWallet)
-        .then((res) => {
-            history.push('/dashboard')
-        })
-        .catch((err) => {
-            dispatch({ type: GET_ERRORS, payload: err.response.data })
-        })
+         .then((res) => {
+             history.push('/dashboard')
+         })
+         .catch((err) => { 
+             dispatch({ type: GET_ERRORS, payload: err.response.data })
+         })
 }
 
 
@@ -42,10 +42,11 @@ export const deleteWallet = (id) => async dispatch => {
 }
 
 export const getWallet = (id) => async dispatch => {
+
     await axios.get(`http://localhost:8080/wallet/${id}`)
-        .then((res) => {
+         .then((res) => {
             
             dispatch({ type: GET_WALLET, payload: res.data })
-        })
+         })
 
 }
